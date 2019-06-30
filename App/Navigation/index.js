@@ -4,17 +4,45 @@ import {
   createSwitchNavigator,
   createDrawerNavigator,
 } from 'react-navigation';
+import React from 'react';
 import TweetsScreen from './TweetsScreen';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
+import UserProfileScreen from './UserProfileScreen';
+import SideMenu from '../Containers/SideMenu';
+import Header from '../Components/Header';
 
-const TweetsStack = createStackNavigator({
-  Tweets: TweetsScreen,
-});
+const ProfileStack = createStackNavigator(
+  {
+    Profile: UserProfileScreen,
+  },
+  {
+    defaultNavigationOptions: props => ({
+      headerLeft: <Header {...props} />,
+    }),
+  },
+);
 
-const AppStack = createDrawerNavigator({
-  Tweets: TweetsStack,
-});
+const TweetsStack = createStackNavigator(
+  {
+    Tweets: TweetsScreen,
+  },
+  {
+    defaultNavigationOptions: props => ({
+      headerLeft: <Header {...props} />,
+    }),
+  },
+);
+
+const AppStack = createDrawerNavigator(
+  {
+    Tweets: TweetsStack,
+    Profile: ProfileStack,
+  },
+  {
+    contentComponent: SideMenu,
+  },
+);
 
 const AuthStack = createStackNavigator({
   SignIn: SignInScreen,

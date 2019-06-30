@@ -14,15 +14,11 @@ import Styles from './Styles';
 import { Types } from '../../Redux/UserRedux';
 import Helper from '../../Config/Helper';
 
-type User = {
+type State = {
   username: string,
   password: string,
   firstname: string,
   lastname: string,
-};
-
-type State = {
-  ...User,
   confirmPassword: string,
   errors: {
     username: string,
@@ -35,7 +31,7 @@ type State = {
 
 type Props = {
   onSignUp: () => void,
-  addUser: (user: User) => void,
+  addUser: (user: any) => void,
   users: Array<any>,
 };
 
@@ -73,7 +69,7 @@ class SignUp extends Component<Props, State> {
     let isValid = true;
     delete form.errors;
     Object.entries(form).forEach(([key, value]) => {
-      if (value.length === 0) {
+      if (value === '') {
         errors[key] = this.emptyMsg;
         isValid = false;
       }
