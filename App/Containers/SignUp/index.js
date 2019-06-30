@@ -7,7 +7,7 @@
  * @flow
  */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { TextField, Button } from '../../Components';
 import Styles from './Styles';
@@ -112,48 +112,53 @@ class SignUp extends Component<Props, State> {
       username, password, firstname, lastname, confirmPassword, errors,
     } = this.state;
     return (
-      <View style={Styles.container}>
-        <TextField
-          label="First Name"
-          textContentType="name"
-          value={firstname}
-          error={errors.firstname}
-          onChange={text => this.setState({ firstname: text, errors: { ...errors, firstname: '' } })
-          }
-        />
-        <TextField
-          label="Last Name"
-          textContentType="familyName"
-          value={lastname}
-          error={errors.lastname}
-          onChange={text => this.setState({ lastname: text, errors: { ...errors, lastname: '' } })}
-        />
-        <TextField
-          label="User Name"
-          textContentType="username"
-          value={username}
-          error={errors.username}
-          onChange={text => this.setState({ username: text, errors: { ...errors, username: '' } })}
-        />
-        <TextField
-          label="Password"
-          textContentType="password"
-          password
-          error={errors.password}
-          value={password}
-          onChange={text => this.setState({ password: text, errors: { ...errors, password: '' } })}
-        />
-        <TextField
-          label="Confirm Password"
-          textContentType="password"
-          password
-          value={confirmPassword}
-          error={errors.confirmPassword}
-          onChange={text => this.setState({ confirmPassword: text, errors: { ...errors, confirmPassword: '' } })
-          }
-        />
-        <Button title="Sign Up" style={Styles.btn} onPress={this.signUp} />
-      </View>
+      <ScrollView>
+        <KeyboardAvoidingView style={Styles.container} behavior="padding" enabled>
+          <TextField
+            label="First Name"
+            textContentType="name"
+            value={firstname}
+            error={errors.firstname}
+            onChange={text => this.setState({ firstname: text, errors: { ...errors, firstname: '' } })
+            }
+          />
+          <TextField
+            label="Last Name"
+            textContentType="familyName"
+            value={lastname}
+            error={errors.lastname}
+            onChange={text => this.setState({ lastname: text, errors: { ...errors, lastname: '' } })
+            }
+          />
+          <TextField
+            label="User Name"
+            textContentType="username"
+            value={username}
+            error={errors.username}
+            onChange={text => this.setState({ username: text, errors: { ...errors, username: '' } })
+            }
+          />
+          <TextField
+            label="Password"
+            textContentType="password"
+            password
+            error={errors.password}
+            value={password}
+            onChange={text => this.setState({ password: text, errors: { ...errors, password: '' } })
+            }
+          />
+          <TextField
+            label="Confirm Password"
+            textContentType="password"
+            password
+            value={confirmPassword}
+            error={errors.confirmPassword}
+            onChange={text => this.setState({ confirmPassword: text, errors: { ...errors, confirmPassword: '' } })
+            }
+          />
+          <Button title="Sign Up" style={Styles.btn} onPress={this.signUp} />
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }
