@@ -30,6 +30,12 @@ export const Types = {
   USER_LOGIN: 'USER_LOGIN',
 };
 
+export function addUserAction(user: User) {
+  return (dispatch) => {
+    dispatch({ type: Types.ADD_USER, user });
+  };
+}
+
 const initialState: State = {
   users: [],
   activeUser: {},

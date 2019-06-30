@@ -11,7 +11,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { TextField, Button } from '../../Components';
 import Styles from './Styles';
-import { Types } from '../../Redux/UserRedux';
+import { addUserAction } from '../../Redux/UserRedux';
 import Helper from '../../Config/Helper';
 
 type State = {
@@ -59,7 +59,10 @@ class SignUp extends Component<Props, State> {
 
   checkUserName = (username: string) => {
     const { users } = this.props;
-    return users.find(user => user.username.toUpperCase() === username.toUpperCase());
+    if (users && users.length > 0) {
+      return users.find(user => user.username.toUpperCase() === username.toUpperCase());
+    }
+    return undefined;
   };
 
   validation = async () => {
@@ -91,10 +94,12 @@ class SignUp extends Component<Props, State> {
       this.setState({ errors });
       return;
     }
-    delete form.confirmPassword;
     const { onSignUp, addUser } = this.props;
     await Helper.SetUser(username, password);
-    addUser({ ...form, password: '***' });
+    await addUser({
+      ...form,
+      password: '***',
+    });
     onSignUp();
   };
 
@@ -154,7 +159,7 @@ class SignUp extends Component<Props, State> {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addUser: user => dispatch({ type: Types.ADD_USER, user }),
+  addUser: user => dispatch(addUserAction(user)),
 });
 
 const mapStateToProps = ({ Users }) => ({
